@@ -6,6 +6,10 @@ set -euo pipefail
 GH_REPO="https://github.com/ankitpokhrel/jira-cli"
 TOOL_NAME="jira-cli"
 TOOL_TEST="jira version"
+COMMAND_NAME="jira"
+
+OS_STRING="$(uname -s | tr '[:upper:]' '[:lower:]')"
+ARCH_STRING="$(uname -m)"
 
 fail() {
 	echo -e "asdf-$TOOL_NAME: $*"
@@ -42,7 +46,7 @@ download_release() {
 	filename="$2"
 
 	# TODO: Adapt the release URL convention for jira-cli
-	url="$GH_REPO/archive/v${version}.tar.gz"
+	url="$GH_REPO/releases/download/v${version}/${COMMAND_NAME}_${version}_${OS_STRING}_${ARCH_STRING}.tar.gz"
 
 	echo "* Downloading $TOOL_NAME release $version..."
 	curl "${curl_opts[@]}" -o "$filename" -C - "$url" || fail "Could not download $url"
